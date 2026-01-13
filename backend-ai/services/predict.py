@@ -4,10 +4,19 @@ from PIL import Image
 import io
 from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
 
-model = tf.keras.models.load_model(
-    "model/mobilenetv2_singkong2.keras",
-    compile=False
-)
+# model = tf.keras.models.load_model(
+#     "model/mobilenetv2_singkong2.keras",
+#     compile=False
+# )
+
+try:
+    model = tf.keras.models.load_model(
+        "model/mobilenetv2_singkong2.keras",
+        compile=False
+    )
+except Exception as e:
+    print("ERROR loading model:", e)
+    model = None
 
 # SESUAI DATASET COLAB (2 KELAS)
 class_names = ["matang", "mentah"]
