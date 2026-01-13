@@ -1,0 +1,173 @@
+{% extends "base.html" %} {% block content %}
+
+<!-- NAVBAR -->
+<nav class="bg-white shadow-sm">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+    <div class="flex items-center gap-2">
+      <img src="/static/images/logo.png" class="w-8" />
+      <span class="text-green-600 font-semibold">
+        Cassava Maturity Detection
+      </span>
+    </div>
+
+    <div class="flex gap-6 text-sm">
+      <a href="/" class="hover:text-green-600">Home</a>
+      <a href="/predict" class="text-green-600 font-medium">Klasifikasi</a>
+      <a href="/result" class="hover:text-green-600">Tentang Sistem</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<section class="bg-[#e3e3e3] pt-12 pb-28 relative">
+  <div class="max-w-6xl mx-auto px-6">
+    <h1 class="text-2xl font-medium text-green-700 mb-2">
+      Klasifikasi Tingkat Kematangan Singkong
+    </h1>
+    <p class="text-sm text-green-600 mb-4">Berbasis CNN MobileNetV2</p>
+    <div class="w-24 h-[2px] bg-green-600"></div>
+  </div>
+  <!-- WAVE -->
+  <div class="absolute bottom-0 left-0 w-full leading-none">
+    <svg
+      viewBox="0 0 1440 200"
+      class="w-full h-[160px]"
+      preserveAspectRatio="none"
+    >
+      <path
+        fill="#9fb5a6"
+        d="M0,120
+         C120,150 240,170 360,160
+         480,150 600,120 720,110
+         840,100 960,120 1080,140
+         1200,160 1320,150 1440,140
+         L1440,200 L0,200 Z"
+      />
+    </svg>
+  </div>
+</section>
+
+<!-- MAIN CONTENT -->
+<section class="bg-white py-16">
+  <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-8">
+    <!-- LEFT: UPLOAD -->
+    <div class="border rounded-xl p-6">
+      <h2 class="text-sm font-semibold text-gray-700 mb-4">
+        Unggah Citra Daun Singkong
+      </h2>
+
+      <ul class="text-xs text-gray-500 mb-6 space-y-1">
+        <li>• Gunakan pencahayaan yang cukup</li>
+        <li>• Objek daun singkong harus jelas</li>
+      </ul>
+
+      <form action="/predict" method="post" enctype="multipart/form-data">
+        <label
+          for="fileInput"
+          class="border-2 border-dashed rounded-lg p-8 flex flex-col items-center justify-center text-center text-sm text-gray-500 mb-4 cursor-pointer hover:bg-gray-50"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-10 h-10 text-green-500 mb-3"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M7 16V12M12 16V8M17 16V4"
+            />
+          </svg>
+
+          <p class="mb-1">Seret gambar ke sini atau klik untuk unggah</p>
+          <p class="text-xs text-gray-400">Format JPG / PNG</p>
+        </label>
+
+        <input
+          id="fileInput"
+          type="file"
+          name="file"
+          accept="image/*"
+          required
+          class="hidden"
+        />
+
+        <!-- PREVIEW IMAGE -->
+        <div id="previewContainer" class="hidden mt-4">
+          <p class="text-xs text-gray-500 mb-2">Preview Gambar:</p>
+          <img
+            id="imagePreview"
+            class="w-full max-h-64 object-contain rounded-lg border"
+          />
+        </div>
+
+        <button
+          type="submit"
+          class="w-full bg-green-600 hover:bg-green-700 text-white py-2.5 rounded-md text-sm"
+        >
+          Proses Klasifikasi
+        </button>
+      </form>
+    </div>
+
+    <!-- RIGHT: RESULT -->
+    <div class="border rounded-xl p-6">
+      <h2 class="text-sm font-semibold text-gray-700 mb-4">
+        Hasil Klasifikasi
+      </h2>
+
+      {% if prediction %}
+      <div class="bg-green-100 rounded-lg p-5 mb-4">
+        <div class="flex items-center gap-2 mb-2">
+          <div
+            class="w-6 h-6 flex items-center justify-center bg-green-500 text-white rounded-full"
+          >
+            ✓
+          </div>
+          <span class="font-semibold text-green-700"> {{ prediction }} </span>
+        </div>
+
+        <p class="text-xs text-gray-600">
+          Tingkat kepercayaan: {{ confidence }}%
+        </p>
+      </div>
+      {% else %}
+      <div class="bg-gray-100 rounded-lg p-5 mb-4 text-sm text-gray-500">
+        Silakan unggah gambar untuk melihat hasil klasifikasi.
+      </div>
+      {% endif %}
+
+      <div class="bg-green-50 rounded-lg p-4 text-xs text-gray-600">
+        <ul class="space-y-1">
+          <li><strong>Model:</strong> MobileNetV2</li>
+          <li><strong>Input:</strong> 224 × 224 px</li>
+          <li><strong>Kelas:</strong> Mentah & Matang</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  const input = document.getElementById("fileInput");
+  const previewContainer = document.getElementById("previewContainer");
+  const imagePreview = document.getElementById("imagePreview");
+
+  input.addEventListener("change", function () {
+    const file = this.files[0];
+
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      imagePreview.src = e.target.result;
+      previewContainer.classList.remove("hidden");
+    };
+
+    reader.readAsDataURL(file);
+  });
+</script>
+
+
+{% endblock %}

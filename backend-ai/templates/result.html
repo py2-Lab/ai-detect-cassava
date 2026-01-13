@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- NAVBAR -->
+<nav class="bg-white shadow-sm">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+    <div class="flex items-center gap-2">
+      <img src="/static/images/logo.png" class="w-8">
+      <span class="text-green-600 font-semibold">
+        Cassava Maturity Detection
+      </span>
+    </div>
+
+    <div class="flex gap-6 text-sm">
+      <a href="/" class="hover:text-green-600">Home</a>
+      <a href="/predict" class="hover:text-green-600">Klasifikasi</a>
+      <a href="/about" class="text-green-600 font-medium">Tentang Sistem</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<section class="bg-[#e3e3e3] pt-12 pb-20 relative">
+  <div class="max-w-6xl mx-auto px-6">
+    <h1 class="text-2xl font-medium text-green-700 mb-3">
+      Tentang Sistem
+    </h1>
+
+    <p class="text-sm text-gray-600 max-w-2xl">
+      Sistem ini menggunakan CNN MobileNetV2 untuk mengklasifikasikan
+      tingkat kematangan singkong berdasarkan citra daun.
+    </p>
+  </div>
+
+  <!-- WAVE -->
+  <div class="absolute bottom-0 left-0 w-full leading-none">
+    <svg viewBox="0 0 1440 200" class="w-full h-[160px]" preserveAspectRatio="none">
+      <path
+        fill="#9fb5a6"
+        d="M0,120
+           C120,150 240,170 360,160
+           480,150 600,120 720,110
+           840,100 960,120 1080,140
+           1200,160 1320,150 1440,140
+           L1440,200 L0,200 Z"/>
+    </svg>
+  </div>
+</section>
+
+<section class="bg-white py-10">
+  <div class="max-w-6xl mx-auto px-6">
+
+    <div class="border rounded-xl p-6 bg-green-50">
+      <h2 class="text-sm font-semibold text-gray-700 mb-3">
+        Hasil Klasifikasi
+      </h2>
+
+      <p class="text-lg font-bold text-green-700">
+        {{ prediction }}
+      </p>
+
+      <p class="text-sm text-gray-600">
+        Tingkat kepercayaan: {{ confidence }}%
+      </p>
+
+      <a href="/predict"
+         class="inline-block mt-4 bg-green-600 hover:bg-green-700
+                text-white px-6 py-2 rounded-md text-sm">
+        Klasifikasi Ulang
+      </a>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- CONTENT -->
+<section class="bg-white py-16 -mt-12">
+  <div class="max-w-6xl mx-auto px-6 space-y-10">
+
+    <!-- ROW 1 -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+      <!-- ALUR SISTEM -->
+      <div class="md:col-span-2 bg-white border rounded-xl p-6">
+        <h3 class="text-sm font-semibold text-gray-700 mb-4">
+          Alur Sistem
+        </h3>
+
+        <div class="flex items-center justify-between text-center text-xs text-gray-600">
+          <div>
+            <img src="/static/images/logo5.png" class="w-10 mx-auto mb-2">
+            Ambil Gambar
+          </div>
+          →
+          <div>
+            <img src="/static/images/logo6.jpg" class="w-10 mx-auto mb-2">
+            Preprocessing
+          </div>
+          →
+          <div>
+            <img src="/static/images/logo3.png" class="w-10 mx-auto mb-2">
+            MobileNetV2
+          </div>
+          →
+          <div>
+            <img src="/static/images/logo7.jpg" class="w-10 mx-auto mb-2">
+            Klasifikasi
+          </div>
+          →
+          <div>
+            <img src="/static/images/logo8.jpg" class="w-10 mx-auto mb-2">
+            Hasil
+          </div>
+        </div>
+      </div>
+
+      <!-- INFORMASI MODEL -->
+      <div class="bg-white border rounded-xl p-6">
+        <h3 class="text-sm font-semibold text-gray-700 mb-4">
+          Informasi Model
+        </h3>
+
+        <ul class="text-xs text-gray-600 space-y-2">
+          <li>Dataset: ±3.000 citra daun</li>
+          <li>Input: 224 × 224 piksel</li>
+          <li>Model: MobileNetV2</li>
+          <li>Optimizer: Adam</li>
+          <li>Akurasi: ±80%</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- KETERBATASAN -->
+    <div class="bg-red-100 rounded-xl p-6">
+      <h3 class="text-sm font-semibold text-gray-700 mb-3">
+        Keterbatasan Sistem
+      </h3>
+
+      <ul class="text-xs text-gray-700 space-y-2">
+        <li>● Sensitif terhadap pencahayaan.</li>
+        <li>● Kelas matang lebih kompleks dibandingkan mentah.</li>
+        <li>● Dataset pelatihan masih terbatas.</li>
+      </ul>
+    </div>
+
+    <!-- CTA -->
+    <div class="text-center pt-6">
+      <p class="text-sm text-gray-600 mb-5">
+        Coba Sistem Klasifikasi kematangan singkong Sekarang
+      </p>
+
+      <a href="/predict"
+         class="inline-block bg-lime-600 hover:bg-lime-700
+                text-white px-8 py-3 rounded-lg text-sm">
+        Unggah Citra Daun Singkong
+      </a>
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}

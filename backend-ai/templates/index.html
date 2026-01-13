@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- NAVBAR -->
+<nav class="bg-white shadow-sm">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+    <div class="flex items-center gap-2">
+      <img src="/static/images/logo.png" class="w-8">
+      <span class="text-green-600 font-semibold">
+        Cassava Maturity Detection
+      </span>
+    </div>
+
+    <div class="flex gap-6 text-sm">
+      <a href="/" class="text-green-600 font-medium">Home</a>
+      <a href="/predict" class="hover:text-green-600">Klasifikasi</a>
+      <a href="/result" class="hover:text-green-600">Tentang Sistem</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="relative bg-[#e3e3e3] overflow-hidden">
+  <div class="max-w-6xl mx-auto px-6 pt-14 pb-24
+              grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+
+    <!-- LEFT -->
+    <div>
+      <h1 class="text-3xl font-medium text-green-700 leading-snug mb-2">
+        Sistem Klasifikasi Kematangan Singkong
+      </h1>
+
+      <p class="text-green-600 text-sm mb-3">
+        Berbasis CNN MobileNetV2
+      </p>
+
+      <div class="w-28 h-[2px] bg-green-600 mb-4"></div>
+
+      <p class="text-sm text-gray-600 mb-6 max-w-md leading-relaxed">
+        Menentukan tingkat kematangan singkong secara sistematis
+        menggunakan citra daun.
+      </p>
+
+      <div class="flex items-center gap-4">
+        <a href="/predict"
+           class="bg-green-600 hover:bg-green-700 text-white
+                  px-5 py-2.5 rounded-md text-sm">
+          Mulai Klasifikasi
+        </a>
+
+        <select
+          class="border border-gray-300 px-4 py-2.5
+                 rounded-md text-sm bg-white">
+          <option selected disable>Pelajari Sistem</option>
+          <option>Metode CNN</option>
+          <option>Dataset</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="flex gap-5 justify-center">
+      <div class="relative">
+        <img src="/static/images/daun-sample1.jpg"
+             class="w-44 h-44 object-cover rounded-2xl shadow-md">
+        <span
+          class="absolute top-3 left-3 bg-green-500
+                 text-white text-xs px-4 py-1 rounded-full">
+          Mentah
+        </span>
+      </div>
+
+      <div class="relative">
+        <img src="/static/images/daun-sample.png"
+             class="w-44 h-44 object-cover rounded-2xl shadow-md">
+        <span
+          class="absolute top-3 left-3 bg-green-500
+                 text-white text-xs px-4 py-1 rounded-full">
+          Matang
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- WAVE (FIXED) -->
+  <div class="absolute bottom-0 left-0 w-full leading-none pointer-events-none">
+  <svg
+    viewBox="0 0 1440 200"
+    class="w-full h-[200px]"
+    preserveAspectRatio="none"
+  >
+    <path
+      fill="#9fb5a6"
+      d="M0,120
+         C120,150 240,170 360,160
+         480,150 600,120 720,110
+         840,100 960,120 1080,140
+         1200,160 1320,150 1440,140
+         L1440,200 L0,200 Z"/>
+  </svg>
+</div>
+</section>
+
+<!-- FEATURES -->
+<section class="bg-white py-16">
+  <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+
+    <div class="border rounded-xl p-5 flex gap-4 items-center">
+      <img src="/static/images/logo2.png" class="w-10">
+      <div>
+        <h3 class="text-sm font-semibold text-green-600">
+          Non Destruktif
+        </h3>
+        <p class="text-xs text-gray-500">
+          Tidak perlu mencabut umbi singkong
+        </p>
+      </div>
+    </div>
+
+    <div class="border rounded-xl p-5 flex gap-4 items-center">
+      <img src="/static/images/logo3.png" class="w-10">
+      <div>
+        <h3 class="text-sm font-semibold text-green-600">
+          CNN MobileNetV2
+        </h3>
+        <p class="text-xs text-gray-500">
+          Model ringan dan efisien
+        </p>
+      </div>
+    </div>
+
+    <div class="border rounded-xl p-5 flex gap-4 items-center">
+      <img src="/static/images/logo1.png" class="w-10">
+      <div>
+        <h3 class="text-sm font-semibold text-green-600">
+          Cepat & Objektif
+        </h3>
+        <p class="text-xs text-gray-500">
+          Mengurangi subjektivitas petani
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="bg-white pb-20">
+  <div class="text-center">
+    <p class="text-gray-600 mb-6">
+      Coba Sistem Klasifikasi kematangan singkong Sekarang
+    </p>
+
+    <a href="/predict"
+       class="inline-flex items-center gap-2 bg-lime-600 hover:bg-lime-700
+              text-white px-8 py-3 rounded-lg text-sm">
+      Unggah Citra Daun Singkong
+      →
+    </a>
+  </div>
+</section>
+
+{% endblock %}
